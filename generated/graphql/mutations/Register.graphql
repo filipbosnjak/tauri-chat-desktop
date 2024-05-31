@@ -1,0 +1,5 @@
+mutation Register($registerInput: AuthInput!) {
+    register(registerInput: $registerInput) {
+        message, error
+    }
+}

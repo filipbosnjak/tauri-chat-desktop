@@ -1,0 +1,58 @@
+type User {
+    id: String!
+    username: String!
+}
+
+type Message {
+    id: String!
+    recipientId: String!
+    senderId: String!
+    message: String
+    dateSent: Date!
+}
+
+input MessageInput {
+    recipientId: String!
+    senderId: String!
+    message: String
+}
+
+scalar Date
+
+type Mutation {
+    register(registerInput: AuthInput!): AuthResponse!
+    login(loginInput: AuthInput!): LoginResponse!
+    logout: Boolean
+    sendMessage(message: MessageInput!): SendResponse!
+}
+
+type Query {
+    getMessagesFromUser(userName: String): [Message]!
+    getUserByUserName(userName: String!): User
+    getAllUsers: [User]
+}
+
+type Subscription {
+    messageSent(recipientId: String!): Message
+}
+
+input AuthInput {
+    username: String!
+    password: String!
+}
+
+type LoginResponse {
+    accessToken: String!
+    user: User!
+}
+
+
+type AuthResponse {
+    message: String!
+    error: String
+}
+
+type SendResponse {
+    message: String!
+    error: String
+}
